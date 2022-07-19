@@ -23,10 +23,10 @@ let holistic = new Holistic({
 await holistic.initialize();
 
 holistic.setOptions({
-  modelComplexity: 1,
+  modelComplexity: 1,          //ランドマーク検出精度(0か1)
   smoothLandmarks: true,
-  minDetectionConfidence: 0.7,
-  minTrackingConfidence: 0.7,
+  minDetectionConfidence: 0.7, //手を検出するための信頼値(0.0~1.0)
+  minTrackingConfidence: 0.7,  //ランドマーク追跡の信頼度(0.0~1.0)
   refineFaceLandmarks: true,
 });
 
@@ -37,18 +37,21 @@ holistic.onResults(results => {
   let rightHandlm = results.rightHandLandmarks;
   let leftHandlm = results.leftHandLandmarks;
 
-  let faceRig = Kalidokit.Face.solve(facelm, {runtime:'mediapipe', video: videoElement, imageSize:{width: 640, height: 480}})
-  let poseRig = Kalidokit.Pose.solve(poselm3D, poselm, {runtime:'mediapipe', video: videoElement, imageSize:{width: 640, height: 480}})
-  let rightHandRig = Kalidokit.Hand.solve(rightHandlm, "Right")
-  let leftHandRig = Kalidokit.Hand.solve(leftHandlm, "Left")
+  let faceRig = Kalidokit.Face.solve(facelm, {runtime:'mediapipe', video: videoElement, imageSize:{width: 640, height: 480}});
+  let poseRig = Kalidokit.Pose.solve(poselm3D, poselm, {runtime:'mediapipe', video: videoElement, imageSize:{width: 640, height: 480}});
+  let rightHandRig = rightHandlm ? Kalidokit.Hand.solve(rightHandlm, "Right") : null;
+  let leftHandRig = leftHandlm ? Kalidokit.Hand.solve(leftHandlm, "Left") : null;
 
   // 出力データの確認
-  console.log(faceRig.head);
+  const trackingData = {
+    face: faceRig,
+    pose: poseRig,
+    rightHandRig: rightHandRig,
+    leftHandRig: leftHandRig,
+  }
+  console.log(JSON.stringify(trackingData));
 });
 
 setInterval(() => {
   holistic.send({ image: videoElement })
 }, 500);
-
-
-
