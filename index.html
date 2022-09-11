@@ -8,7 +8,15 @@
     <title>kalidokit | example</title>
 </head>
 <body>
-    <video class="input_video" width="1280px" height="720px"></video>
+    <p>Status: <span id="status">Stop</span></p>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="download">Download</button>
+    <button id="clear">Clear</button>
+
+    <video id="input_video" width="1280px" height="720px"></video>
+    <textarea id="log" cols="200" rows="50"></textarea>
+
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/kalidokit@1.1/dist/kalidokit.umd.js"></script>
     <script src="index.js"></script>
