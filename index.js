@@ -10,7 +10,8 @@ function clearLog() {
 
 // JSONデータのダウンロード
 function downloadJson() {
-  const blob = new Blob([JSON.stringify(trackingDataList, null, '  ')], {type: 'application\/json'});
+  const jsonData = { trackingDataList: trackingDataList };
+  const blob = new Blob([JSON.stringify(jsonData, null, '  ')], {type: 'application\/json'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
