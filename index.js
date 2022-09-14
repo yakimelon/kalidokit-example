@@ -152,7 +152,7 @@ async function exec() {
 
   setInterval(() => {
     holistic.send({ image: videoElement })
-  }, 500);
+  }, 1000/15);
 }
 
 exec();
