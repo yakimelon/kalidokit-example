@@ -15,7 +15,7 @@ function downloadJson() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'sample.json';
+  link.download = 'WebcamMotionMock.json';
   link.click();
   URL.revokeObjectURL(url);
 }
